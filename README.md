@@ -1,79 +1,89 @@
-# opencode-dx
+<p align="center">
+  <img src="docs/logo.svg" width="120" alt="opencode-dx logo"/>
+</p>
 
-A collection of agents, templates, and workflows for agentic assistance in development work.
+<h1 align="center">opencode-dx</h1>
 
-This repository allows you to version-control and easily sync your custom OpenCode configurations, custom agents, and templates across multiple WSL (Windows Subsystem for Linux) and Linux devices without exposing your private API keys.
+<p align="center">
+  A collection of agents, templates, and workflows for agentic assistance in development work
+</p>
 
----
+<p align="center">
+  <a href="#quick-start">Quick Start</a> •
+  <a href="AGENTS.md">Agents</a> •
+  <a href="#keeping-configs-in-sync">Sync</a>
+</p>
 
-## 🚀 Quick Start (For New Devices)
+<p align="center">
+  <img src="https://img.shields.io/badge/opencode-v0.5.0-6366f1?style=flat-square" alt="opencode">
+  <img src="https://img.shields.io/badge/license-MIT-8b5cf6?style=flat-square" alt="license">
+  <img src="https://img.shields.io/badge/PRs-welcome-22c55e?style=flat-square" alt="PRs welcome">
+  <img src="https://img.shields.io/badge/platform-linux%20%7C%20wsl-64748b?style=flat-square" alt="platform">
+</p>
 
-If you are setting up OpenCode on a new WSL environment:
-
-1.  **Clone this repository** into your `~/repos` directory:
-    ```bash
-    mkdir -p ~/repos
-    git clone https://github.com/Jzbonner/opencode-dx.git ~/repos/opencode-dx
-    ```
-
-2.  **Run the setup script**:
-    ```bash
-    cd ~/repos/opencode-dx
-    chmod +x setup.sh
-    ./setup.sh
-    ```
-
-3.  **Apply environment changes**:
-    ```bash
-    source ~/.bashrc
-    ```
-
-4.  **Add your actual API keys**:
-    Add your raw keys inside your local `~/.keys` directory (e.g., paste your Tavily API key inside `~/.keys/tavily`).
+Version-control and easily sync your custom OpenCode configurations, agents, and templates across multiple WSL and Linux devices — without exposing your private API keys.
 
 ---
 
-## ⚙️ What the Setup Script (`setup.sh`) Does
+## Quick Start
 
-The `setup.sh` script automates the complete configuration lifecycle. Here is exactly what happens when you run it:
+Clone and run on any new WSL environment:
 
-1.  **Ensures API Keys Directory Exists**:
-    *   Checks for a local directory at `~/.keys/`.
-    *   If missing, it creates the folder and populates empty template files (`tavily`, `jina`) so you know exactly where to paste your keys.
-2.  **Integrates dynamic Key Loader into `.bashrc`**:
-    *   Safely appends a secure key-loader snippet to the end of your `~/.bashrc`.
-    *   This dynamically loads keys into your active shell env *on-startup* without hardcoding secrets in your dotfiles or repository.
-3.  **Backs up existing native configurations**:
-    *   Before linking, the script checks if you have any existing pre-installed configuration files inside `~/.config/opencode/`.
-    *   If found, it backs them up safely to `.bak` files (e.g., `opencode.jsonc.bak` and `agents.bak/`) to prevent data loss.
-4.  **Configures Symlinks**:
-    *   Creates active symbolic links pointing your system's OpenCode app paths to your version-controlled `opencode-dx` folders.
-    *   Any edits made to `/agents` or `opencode.jsonc` in this repository are immediately active inside OpenCode!
-5.  **Restores Plugins & Node Modules**:
-    *   Triggers an automatic `npm install` inside your linked `~/.config/opencode/` directory to fetch and sync any plugins or dependencies (such as `@opencode-ai/plugin`).
+```bash
+git clone https://github.com/Jzbonner/opencode-dx.git ~/repos/opencode-dx
+cd ~/repos/opencode-dx
+./setup.sh
+source ~/.bashrc
+```
+
+Then add your actual API keys to `~/.keys/tavily` and `~/.keys/jina`.
 
 ---
 
-## 🤖 Custom Agents
-All custom agents are located inside the `agents/` directory. For a complete breakdown of current subagents (like `CodeSentinel` and `ContentArchitect`) and guidelines on how to build your own, check out [AGENTS.md](./AGENTS.md).
+## What the Setup Script Does
+
+The `setup.sh` script automates the entire configuration lifecycle:
+
+| Step | Action |
+|------|--------|
+| 1 | Creates `~/.keys/` with empty template files if missing |
+| 2 | Appends a secure key-loader snippet to `~/.bashrc` |
+| 3 | Backs up any existing `~/.config/opencode/` files to `.bak` |
+| 4 | Creates symlinks from `~/.config/opencode/` → your repo files |
+| 5 | Runs `npm install` to restore plugins and dependencies |
+
+Any edits made to `agents/` or `opencode.jsonc` in this repo are immediately active in OpenCode.
 
 ---
 
-## 🔄 Keeping Configs in Sync
+## Agents
 
-When making changes (e.g., adding a template or custom agent):
+All custom agents live in [`agents/`](agents/). Current registry:
+
+- **CodeSentinel** — pre-commit quality & security checks
+- **ContentArchitect** — research and content creation with web search
+- **ContentBridge** — summarization and social media tailoring
+- **DataBridge** — Supabase and database management
+- **StackScaffolder** — project scaffolding for React, TS, Node, Python
+
+See [AGENTS.md](AGENTS.md) for details and instructions on adding new agents.
+
+---
+
+## Keeping Configs in Sync
 
 **On your active device:**
+
 ```bash
 git add .
-git commit -m "feat: added new custom agent"
+git commit -m "feat: add new agent or template"
 git push
 ```
 
 **On other devices:**
+
 ```bash
 cd ~/repos/opencode-dx
 git pull
-# If new plugins/packages were added:
 ./setup.sh
 ```
