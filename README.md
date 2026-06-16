@@ -36,7 +36,9 @@ cd ~/repos/opencode-dx
 source ~/.bashrc
 ```
 
-Then add your actual API keys to `~/.keys/tavily` and `~/.keys/jina`.
+Then add your actual API keys to `~/.keys/tavily` and `~/.keys/jina`.**
+
+After setup, **restart opencode** to load the new agent definitions.
 
 ---
 
@@ -60,11 +62,11 @@ Any edits made to `agents/` or `opencode.jsonc` in this repo are immediately act
 
 All custom agents live in [`agents/`](agents/). Current registry:
 
-- **CodeSentinel** — pre-commit quality & security checks
-- **ContentArchitect** — research and content creation with web search
-- **ContentBridge** — summarization and social media tailoring
-- **DataBridge** — Supabase and database management
-- **StackScaffolder** — project scaffolding for React, TS, Node, Python
+- **StackScaffolder** — scaffolds Web (Vite+React+TS), Mobile (Expo SDK 52+), Python (FastAPI/scripts), and Pixi (cross-language) projects with Supabase, Tailwind/NativeWind, and minimal directory structures
+- **CodeSentinel** — automated quality gate: auto-fixes lint/format, runs security scans, executes tests on-demand, outputs pass/fail verdict for git hook integration
+- **DataBridge** — Supabase and PostgreSQL management: TypeScript type generation, SQL migration drafting, client query generation, and schema/RLS reporting
+- **ContentArchitect** — content creation with two modes: Research (deep-dive with web search via Tavily/Jina.ai, saved to Obsidian vault) and Quick Read (concise posts in 7 writing styles)
+- **ContentBridge** — transforms long-form articles into platform-optimized posts for X, LinkedIn, Dev.to, and Personal Blog with 7 configurable writing styles
 
 See [AGENTS.md](AGENTS.md) for details and instructions on adding new agents.
 
