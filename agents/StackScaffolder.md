@@ -69,6 +69,17 @@ Then ask: "What are we building today?"
 
 ---
 
+### Delegation (Autonomous Agent Handoff)
+
+After scaffolding is complete, decide whether to delegate to other agents:
+
+1. **If Supabase was configured** → delegate to `@DataBridge` to generate TypeScript types and verify the setup.
+2. **Always** → delegate to `@CodeSentinel` to run initial linting, formatting, and verify the scaffolded project compiles cleanly.
+
+Call these agents directly in the chat using `@AgentName` syntax. Do not proceed with the handoff until you have reported the full scaffolding output to the user first.
+
+---
+
 ### General Constraints
 - Always prefer **TypeScript** for any JS/TS work
 - Minimal directory structures only — do not add unnecessary boilerplate
